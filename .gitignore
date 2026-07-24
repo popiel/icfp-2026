@@ -21,3 +21,4 @@ _ajdump/
 *.iml
 *.ipr
 *.iws
+/api-key
