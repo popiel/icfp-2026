@@ -112,20 +112,17 @@ final class LiteralParser(text: ProgramText) {
       }
     }
 
-    // value must fit in 64 bits read both directions
+    // value must fit in a signed 64-bit long read both directions
     val digitsStr = digits.map(d => text.charAt(d)).mkString
     if (digitsStr.nonEmpty) {
-      try {
-        java.lang.Long.parseUnsignedLong(digitsStr)
-      } catch {
+      try { java.lang.Long.parseLong(digitsStr) }
+      catch {
         case _: NumberFormatException =>
           return Left(ParseError(s"literal '$digitsStr' does not fit in 64 bits at $open"))
       }
-      // reversed direction (same digits, reversed order) — same magnitude
       val rev = digitsStr.reverse
-      try {
-        java.lang.Long.parseUnsignedLong(rev)
-      } catch {
+      try { java.lang.Long.parseLong(rev) }
+      catch {
         case _: NumberFormatException =>
           return Left(ParseError(s"literal '$rev' (reversed) does not fit in 64 bits at $open"))
       }
