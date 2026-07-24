@@ -9,5 +9,6 @@ scalaVersion := "2.13.17"
 fork := true
 
 libraryDependencies ++= Seq(
+  "com.lihaoyi" %% "upickle" % "3.1.0",
   "org.scalatest" %% "scalatest" % "3.2.15" % Test
 )
