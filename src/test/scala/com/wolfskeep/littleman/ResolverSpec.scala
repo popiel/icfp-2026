@@ -56,7 +56,7 @@ class ResolverSpec extends AnyWordSpec with Matchers {
       targetAt(rp, 2, 1) shouldBe ResolvedTargets.All(outs)
     }
 
-    "resolve an 'R' to all incoming pipes in reading order" in {
+    "resolve an 'R' to all incoming pipes ordered by proximity (distance, then reading order)" in {
       val rp = resolve(
         """
           #+--+>>+--+>>+--+
@@ -65,6 +65,43 @@ class ResolverSpec extends AnyWordSpec with Matchers {
       val destRoom = rp.program.rooms.rooms.find(_.topLeft == Point(6, 0)).get
       val dests = rp.program.pipes.pipes.filter(_.dest == PipeDest.Room(destRoom.id))
       targetAt(rp, 7, 1) shouldBe ResolvedTargets.All(dests)
+    }
+
+    "order R's incoming pipes by Manhattan distance with reading-order tiebreak" in {
+      // Two incoming pipes into the right room R:
+      //   (a) west '>>' from the left room into R's LEFT wall (destCell (6,1))
+      //   (b) south '^'  from H's top wall, flowing up into R's BOTTOM wall
+      // R occupies rows 0..2, cols 6..13. H occupies rows 4..6, cols 11..14.
+      // The vertical pipe: source '^' at (12,3) with backward cell (12,4)=H
+      // top wall; terminal '^' at... actually the source 'is' the start. We
+      // need two cells: a start '^' (attached to H's top) and a terminal '^'
+      // whose forward cell (one above) is R's bottom wall at (12,2).
+      // So: start '^' at (12,4)? No — (12,4) is H's top wall (owned).
+      // Correct: start '^' at (12,3) backward (12,4)=H top; flows up; the
+      // next free cell above is (12,2)? No, (12,2)=R bottom wall (owned).
+      // So we need a 2-row gap; put H at rows 5..7 so free rows 3,4.
+      // start '^' at (12,4) backward (12,5)=H top; flows up; cell (12,3) free.
+      // Make (12,3) a terminal '^': forward (12,2)=R bottom wall -> terminal.
+      // Cells: (12,4),(12,3). Length 2.
+      val rp = resolve(
+        """
+          #+--+>>+------+
+          #|@s|  |R  H  |
+          #+--+  +------+
+          #             ^
+          #             ^
+          #         +---+
+          #         |H  |
+          #         +---+""")
+      val rRoom = rp.program.rooms.rooms.find(_.topLeft == Point(6, 0)).get
+      val all = rp.program.pipes.pipes.filter(_.dest == PipeDest.Room(rRoom.id))
+      all should have size 2
+      val rPos = rRoom.interiorOrigin
+      val t = targetAt(rp, rPos.x, rPos.y).asInstanceOf[ResolvedTargets.All]
+      t.pipes should have size 2
+      val d1 = rPos.manhattan(t.pipes.head.destCell)
+      val d2 = rPos.manhattan(t.pipes.last.destCell)
+      d1 should be <= d2
     }
 
     "return NotPipe for a non-pipe instruction" in {

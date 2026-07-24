@@ -45,9 +45,9 @@ final class Resolver(program: LoadedProgram) {
         val ins = incomingOf(room).sortBy(readOrder)
         ResolvedTargets.Nearest(nearest(point, ins))
       case 'S' =>
-        ResolvedTargets.All(outgoingOf(room).sortBy(readOrder))
+        ResolvedTargets.All(outgoingOf(room).sortBy(readOrder)) // S writes to ALL; order doesn't affect semantics
       case 'R' | 'U' =>
-        ResolvedTargets.All(incomingOf(room).sortBy(readOrder))
+        ResolvedTargets.All(nearestSorted(point, incomingOf(room)))
       case _ =>
         ResolvedTargets.NotPipe
     }
@@ -69,24 +69,24 @@ final class Resolver(program: LoadedProgram) {
     * this is the source cell; for incoming pipes the dest cell. */
   private def attachedCell(p: Pipe): Point = p.sourceCell
 
+  /** Rank `pipes` by Manhattan distance from `from` to each pipe's attached
+    * cell (source cell for outgoing, dest cell for incoming), ties broken by
+    * the attached cell's reading order. Returns pipes in ascending rank. */
+  private def rankByProximity(from: Point, pipes: Vector[Pipe]): Vector[Pipe] =
+    pipes.map { p =>
+      val cell = if (p.sourceRoomId == program.rooms.roomAt(from).map(_.id).getOrElse(-1))
+        p.sourceCell else p.destCell
+      (from.manhattan(cell), cell.readingOrder(Point(Int.MaxValue, Int.MaxValue)), p)
+    }.sortBy { case (d, ro, _) => (d, ro) }.map(_._3)
+
   /** Choose the nearest pipe to `from` by Manhattan distance to the pipe's
     * attached segment cell, ties broken by reading order of that cell. */
   private def nearest(from: Point, pipes: Vector[Pipe]): Option[Pipe] =
-    if (pipes.isEmpty) None
-    else {
-      // for each pipe use its attached cell's distance + reading order
-      val ranked = pipes.map { p =>
-        val cell = if (outgoing(p)) p.sourceCell else p.destCell
-        (from.manhattan(cell), cell.readingOrder(Point(Int.MaxValue, Int.MaxValue)), p)
-      }.sortBy { case (d, ro, _) => (d, ro) }
-      Some(ranked.head._3)
-    }
+    if (pipes.isEmpty) None else Some(rankByProximity(from, pipes).head)
 
-  private def outgoing(p: Pipe): Boolean =
-    program.pipes.pipes.contains(p) && pipesOutTo(p)
-
-  // dummy to avoid recomputation; kept simple
-  private def pipesOutTo(p: Pipe): Boolean = true
+  /** All `pipes` sorted by proximity to `from`, ties broken by reading order. */
+  private def nearestSorted(from: Point, pipes: Vector[Pipe]): Vector[Pipe] =
+    rankByProximity(from, pipes)
 
   private def readOrder(p: Pipe): (Int, Int) = {
     val cell = p.sourceCell
