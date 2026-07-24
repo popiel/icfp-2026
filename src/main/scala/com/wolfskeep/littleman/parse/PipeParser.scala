@@ -22,8 +22,11 @@ final class PipeParser(text: ProgramText, rooms: RoomScan) {
     var cellOwner: Map[Point, Int] = Map.empty
     var nextId: Int = 0
 
-    // Candidate start arrowheads: free cells that are arrowheads and whose
-    // backward cell is on some room border, with the arrow pointing away.
+    // Candidate start arrowheads: free cells that are arrowheads. We attempt each
+    // in reading order, but only those whose backward cell is on a room border
+    // (the arrow pointing away from it) actually start a pipe. A candidate that
+    // fails this check is not errored here — it may be a mid-pipe cell claimed
+    // by another start (or flagged as dangling afterward).
     val candidates = text.findAll(c => Direction.fromArrow(c).isDefined)
       .filter(p => rooms.isFree(p))
       .sortBy(p => (p.y, p.x))
@@ -31,17 +34,23 @@ final class PipeParser(text: ProgramText, rooms: RoomScan) {
     for (start <- candidates) {
       // skip if already consumed by a prior pipe
       if (!cellOwner.contains(start)) {
-        traceFrom(start, nextId) match {
-          case Right(pipe) =>
-            // claim every cell; reject if any already owned
-            for (c <- pipe.cells) {
-              if (cellOwner.contains(c))
-                return Left(ParseError(s"pipe cell at ${c.x},${c.y} belongs to two pipes"))
-              cellOwner = cellOwner.updated(c, pipe.id)
+        // only attempt a trace if this looks like a real start
+        val dir0 = Direction.fromArrow(text.charAt(start)).get
+        val back = start.plus(dir0.opposite.delta)
+        rooms.roomAt(back) match {
+          case Some(room) if room.borderCells.contains(back) && rooms.isFree(start.plus(dir0.delta)) =>
+            traceFrom(start, nextId) match {
+              case Right(pipe) =>
+                for (c <- pipe.cells) {
+                  if (cellOwner.contains(c))
+                    return Left(ParseError(s"pipe cell at ${c.x},${c.y} belongs to two pipes"))
+                  cellOwner = cellOwner.updated(c, pipe.id)
+                }
+                pipes = pipes :+ pipe
+                nextId += 1
+              case Left(err) => return Left(err)
             }
-            pipes = pipes :+ pipe
-            nextId += 1
-          case Left(err) => return Left(err)
+          case _ => // not a start; will be claimed or flagged later
         }
       }
     }
