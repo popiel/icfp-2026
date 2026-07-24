@@ -1,0 +1,15 @@
+.cache
+.classpath
+.project
+/.settings
+.*.swp
+.*.swo
+lib/
+/templates/gen
+target/
+*/log/*
+run/*
+!.keep
+*.hide
+_ajdump/
+/project/build.properties
