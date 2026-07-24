@@ -12,10 +12,10 @@ class RoomScannerSpec extends AnyWordSpec with Matchers {
     "scan a single 3x3 room with one spawn" in {
       val scan = RoomScanner.scan(grid(
         """
-          |+-+
-          ||@|
-          |+-+
-          |""")).toOption.get
+          #+-+
+          #|@|
+          #+-+
+          #""")).toOption.get
       scan.rooms should have size 1
       val r = scan.rooms.head
       r.topLeft shouldBe Point(0, 0)
@@ -31,11 +31,11 @@ class RoomScannerSpec extends AnyWordSpec with Matchers {
     "scan a larger room and place the spawn at the @" in {
       val scan = RoomScanner.scan(grid(
         """
-          |+----+
-          ||@ H |
-          ||    |
-          |+----+
-          |""")).toOption.get
+          #+----+
+          #|@ H |
+          #|    |
+          #+----+
+          #""")).toOption.get
       scan.rooms should have size 1
       scan.spawns shouldBe Vector(Point(1, 1))
     }
@@ -43,10 +43,10 @@ class RoomScannerSpec extends AnyWordSpec with Matchers {
     "scan two adjacent rooms sharing a wall as two rooms" in {
       val scan = RoomScanner.scan(grid(
         """
-          |+--+--+
-          ||@.|. |
-          |+--+--+
-          |""")).toOption.get
+          #+--+--+
+          #|@.|. |
+          #+--+--+
+          #""")).toOption.get
       scan.rooms should have size 2
       scan.spawns shouldBe Vector(Point(1, 1))
     }
@@ -54,12 +54,12 @@ class RoomScannerSpec extends AnyWordSpec with Matchers {
     "reject nested rooms (overlapping interiors)" in {
       val err = RoomScanner.scan(grid(
         """
-          |+----+
-          ||+--+|
-          |||@ ||
-          ||+--+|
-          |+----+
-          |"""))
+          #+----+
+          #|+--+|
+          #||@ ||
+          #|+--+|
+          #+----+
+          #"""))
       err.isLeft shouldBe true
       err.left.get.message.toLowerCase should include("overlap")
     }
@@ -67,10 +67,10 @@ class RoomScannerSpec extends AnyWordSpec with Matchers {
     "reject a spawn outside any room" in {
       val err = RoomScanner.scan(grid(
         """
-          | @+-+
-          |  |@|
-          |  +-+
-          |"""))
+          # @+-+
+          #  |@|
+          #  +-+
+          #"""))
       err.isLeft shouldBe true
       err.left.get.message.toLowerCase should include("spawn")
     }
@@ -78,10 +78,10 @@ class RoomScannerSpec extends AnyWordSpec with Matchers {
     "reject multiple @ in a single room" in {
       val err = RoomScanner.scan(grid(
         """
-          |+------+
-          ||@  @  |
-          |+------+
-          |"""))
+          #+------+
+          #|@  @  |
+          #+------+
+          #"""))
       err.isLeft shouldBe true
       err.left.get.message.toLowerCase should include("spawn")
     }
@@ -89,31 +89,31 @@ class RoomScannerSpec extends AnyWordSpec with Matchers {
     "detect a 3x3 input room by interior 'I'" in {
       val scan = RoomScanner.scan(grid(
         """
-          |+-+
-          ||I|
-          |+-+
-          |""")).toOption.get
+          #+-+
+          #|I|
+          #+-+
+          #""")).toOption.get
       scan.rooms.head.kind shouldBe RoomKind.Input
     }
 
     "detect a 3x3 output room by interior 'O'" in {
       val scan = RoomScanner.scan(grid(
         """
-          |+-+
-          ||O|
-          |+-+
-          |""")).toOption.get
+          #+-+
+          #|O|
+          #+-+
+          #""")).toOption.get
       scan.rooms.head.kind shouldBe RoomKind.Output
     }
 
     "detect a display by '=' horizontal and ':' vertical walls" in {
       val scan = RoomScanner.scan(grid(
         """
-          |+====+
-          |:    :
-          |:    :
-          |+====+
-          |""")).toOption.get
+          #+====+
+          #:    :
+          #:    :
+          #+====+
+          #""")).toOption.get
       scan.rooms should have size 1
       scan.rooms.head.kind shouldBe RoomKind.Display
       scan.rooms.head.interiorWidth shouldBe 4
@@ -124,10 +124,10 @@ class RoomScannerSpec extends AnyWordSpec with Matchers {
     "reject a spawn ('@') inside a display" in {
       val err = RoomScanner.scan(grid(
         """
-          |+===+
-          |:@  :
-          |+===+
-          |"""))
+          #+===+
+          #:@  :
+          #+===+
+          #"""))
       err.isLeft shouldBe true
       err.left.get.message.toLowerCase should include("display")
     }
@@ -135,10 +135,10 @@ class RoomScannerSpec extends AnyWordSpec with Matchers {
     "reject a room with mixed wall styles" in {
       val err = RoomScanner.scan(grid(
         """
-          |+===+
-          ||   |
-          |+===+
-          |"""))
+          #+===+
+          #|   |
+          #+===+
+          #"""))
       err.isLeft shouldBe true
       err.left.get.message.toLowerCase should include("wall")
     }
@@ -146,18 +146,18 @@ class RoomScannerSpec extends AnyWordSpec with Matchers {
     "order spawns by reading order across rooms" in {
       val scan = RoomScanner.scan(grid(
         """
-          |+--+ +--+
-          ||@ | |@ |
-          |+--+ +--+
-          |""")).toOption.get
+          #+--+ +--+
+          #|@ | |@ |
+          #+--+ +--+
+          #""")).toOption.get
       scan.spawns shouldBe Vector(Point(1, 1), Point(6, 1))
     }
 
     "return an empty scan for a blank program" in {
       val scan = RoomScanner.scan(grid(
         """
-          |   
-          |   """)).toOption.get
+          #   
+          #   """)).toOption.get
       scan.rooms shouldBe empty
       scan.spawns shouldBe empty
     }
@@ -165,18 +165,13 @@ class RoomScannerSpec extends AnyWordSpec with Matchers {
 }
 
 object RoomScannerSpec {
-  /** Build a ProgramText from a `stripMargin`-style heredoc. Each content
-    * line begins with a '|' margin marker (which is stripped); the left wall
-    * '|' of a room is written as the second '|' on that line, so it survives
-    * stripping. Common leading indentation is then removed with stripIndent. */
+  /** Build a ProgramText from a heredoc whose content lines use '#' as the
+    * stripMargin marker (avoiding collision with the '|' room-wall glyph).
+    * '#' and any preceding indentation are stripped from each content line;
+    * leading/trailing blank lines are dropped. */
   def grid(s: String): ProgramText = {
-    val raw = s.linesIterator.toVector
-      .dropWhile(_.trim.isEmpty).reverse.dropWhile(_.trim.isEmpty).reverse
-    val marged = raw.map { line =>
-      val i = line.indexWhere(c => c != ' ')
-      if (i >= 0 && line(i) == '|') line.substring(0, i) + line.substring(i + 1)
-      else line
-    }
-    ProgramText(marged.mkString("\n").stripIndent)
+    val marged = s.stripMargin('#').linesIterator.toVector
+    val trimmed = marged.dropWhile(_.trim.isEmpty).reverse.dropWhile(_.trim.isEmpty).reverse
+    ProgramText(trimmed.mkString("\n"))
   }
 }
