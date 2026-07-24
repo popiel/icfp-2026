@@ -13,3 +13,11 @@ run/*
 *.hide
 _ajdump/
 /project/build.properties
+.idea/
+.bloop/
+.metals/
+.vs/
+.vscode/
+*.iml
+*.ipr
+*.iws
