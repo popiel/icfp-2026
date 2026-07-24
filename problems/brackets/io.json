@@ -1,0 +1,18 @@
+{
+  "input": {
+    "lengthPrefixed": {
+      "of": "ascii",
+      "label": "brackets",
+      "note": "the string to check"
+    }
+  },
+  "output": {
+    "of": "int",
+    "label": "result"
+  },
+  "constraints": [
+    "`0 ≤ n ≤ 64` — string length",
+    "each character is one of `(` `)` `[` `]` `{` `}`",
+    "nesting depth `≤ 32`"
+  ]
+}

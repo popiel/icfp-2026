@@ -1,0 +1,15 @@
+{
+  "id": "12e85ddb-a14f-4209-a516-eb4ff70977bf",
+  "slug": "hello-world",
+  "name": "Hello World",
+  "problemSetName": "Practice Problems (Ungraded)",
+  "status": "practice",
+  "fetchedAt": "2026-07-24T21:32:37.753981600Z",
+  "bodyFetchedAt": "2026-07-24T21:32:37.753981600Z",
+  "bestScorePossible": null,
+  "candidateScores": [
+    
+  ],
+  "lastSubmission": null,
+  "frozen": false
+}

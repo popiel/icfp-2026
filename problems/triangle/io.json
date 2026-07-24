@@ -1,0 +1,13 @@
+{
+  "input": {
+    "of": "int",
+    "label": "n"
+  },
+  "output": {
+    "of": "int",
+    "label": "T"
+  },
+  "constraints": [
+    "`0 ≤ n ≤ 1000`"
+  ]
+}

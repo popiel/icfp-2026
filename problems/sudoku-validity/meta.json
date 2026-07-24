@@ -1,0 +1,15 @@
+{
+  "id": "f66c928f-3369-4870-9153-8b20cafc2ecd",
+  "slug": "sudoku-validity",
+  "name": "Sudoku Auditor",
+  "problemSetName": "Semester 3",
+  "status": "graded",
+  "fetchedAt": "2026-07-24T21:32:39.879619800Z",
+  "bodyFetchedAt": "2026-07-24T21:32:39.879619800Z",
+  "bestScorePossible": null,
+  "candidateScores": [
+    
+  ],
+  "lastSubmission": null,
+  "frozen": false
+}

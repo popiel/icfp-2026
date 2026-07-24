@@ -1,0 +1,17 @@
+{
+  "input": {
+    "lengthPrefixed": {
+      "of": "int",
+      "label": "x",
+      "note": "a number in the list"
+    }
+  },
+  "output": {
+    "of": "int",
+    "label": "max"
+  },
+  "constraints": [
+    "`1 ≤ n ≤ 1000`",
+    "`-1000000 ≤ x ≤ 1000000`"
+  ]
+}

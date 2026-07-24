@@ -1,0 +1,23 @@
+{
+  "input": {
+    "of": {
+      "repeat": "int"
+    },
+    "note": "Round 1 is the roster: `N K`, then the `N` student records `id g1 ... gK` back-to-back. Every later round is a batch: a count `O`, then `O` operations back-to-back."
+  },
+  "output": {
+    "of": {
+      "repeat": "int"
+    },
+    "note": "A round's output is its GET/AVG/TOP replies, in operation order. The roster round and SET operations produce no output."
+  },
+  "constraints": [
+    "`4 ≤ N ≤ 16` — students",
+    "`1 ≤ K ≤ 4` — subjects",
+    "student ids distinct, `1000 ≤ id ≤ 9999`, not dense, not sorted",
+    "`0 ≤ g ≤ 100` — grades, initial or set",
+    "every operation references an existing id and a subject in `1..K`",
+    "1–10 batch rounds per test case, 1–8 operations per batch",
+    "one roster per test case (no reload)"
+  ]
+}

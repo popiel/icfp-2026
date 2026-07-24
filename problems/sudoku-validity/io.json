@@ -1,0 +1,31 @@
+{
+  "input": {
+    "seq": [
+      {
+        "of": "int",
+        "label": "r",
+        "note": "row, 0-indexed, 0-8"
+      },
+      {
+        "of": "int",
+        "label": "c",
+        "note": "column, 0-indexed, 0-8"
+      },
+      {
+        "of": "int",
+        "label": "v",
+        "note": "value placed at (r, c), 1-9"
+      }
+    ]
+  },
+  "output": {
+    "of": "int",
+    "label": "verdict",
+    "note": "1 if consistent so far, else 0"
+  },
+  "constraints": [
+    "`0 ≤ r, c ≤ 8`",
+    "`1 ≤ v ≤ 9`",
+    "up to 81 rounds per test case — no cell is delivered more than once"
+  ]
+}

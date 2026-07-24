@@ -1,0 +1,21 @@
+{
+  "input": {
+    "lengthPrefixed": {
+      "of": "int",
+      "label": "x",
+      "note": "a number in the list"
+    }
+  },
+  "output": {
+    "repeat": {
+      "of": "int",
+      "label": "x",
+      "note": "the list in ascending order"
+    }
+  },
+  "constraints": [
+    "`1 ≤ n ≤ 16` — numbers per list",
+    "`-10000 ≤ x ≤ 10000`",
+    "2–6 lists per test case"
+  ]
+}

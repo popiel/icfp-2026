@@ -1,0 +1,19 @@
+{
+  "input": {
+    "of": {
+      "repeat": "int"
+    },
+    "note": "Round 1 carries `n` (the stream length), then the first packet as `seq val`; every later round carries one packet: `seq val`."
+  },
+  "output": {
+    "of": {
+      "repeat": "int"
+    },
+    "note": "The values this round's packet drained, in `seq` order (possibly none); `-1` means the stream is lost, and is always the test case's final output."
+  },
+  "constraints": [
+    "`1 ≤ n ≤ 48` — stream length",
+    "`0 ≤ seq < n`, distinct within a test case",
+    "`1 ≤ val ≤ 999`"
+  ]
+}

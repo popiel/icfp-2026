@@ -1,0 +1,22 @@
+{
+  "input": {
+    "repeat": {
+      "of": "int",
+      "label": "op stream",
+      "note": "a stream of operations: READ is the pair 0 addr, WRITE is the triple 1 addr value"
+    }
+  },
+  "output": {
+    "repeat": {
+      "of": "int",
+      "label": "value",
+      "note": "the result of one READ, in operation order"
+    }
+  },
+  "constraints": [
+    "The operation stream contains between 2 and 1000 input tokens.",
+    "`op` is `0` (READ) or `1` (WRITE)",
+    "`0 ≤ addr < 100`",
+    "`-1000000 ≤ value ≤ 1000000`"
+  ]
+}

@@ -1,0 +1,8 @@
+{
+  "input": "lengthPrefixedAscii",
+  "output": "int",
+  "constraints": [
+    "`1 ≤ n ≤ 10` — a non-negative decimal integer of 1–10 digits",
+    "every value fits in a 32-bit signed int"
+  ]
+}

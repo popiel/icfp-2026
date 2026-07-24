@@ -1,0 +1,15 @@
+{
+  "id": "d1415447-bf8d-49ef-924e-e024b06a504d",
+  "slug": "gradebook",
+  "name": "Grade Book",
+  "problemSetName": "Semester 3",
+  "status": "graded",
+  "fetchedAt": "2026-07-24T21:32:38.816289400Z",
+  "bodyFetchedAt": "2026-07-24T21:32:38.816289400Z",
+  "bestScorePossible": null,
+  "candidateScores": [
+    
+  ],
+  "lastSubmission": null,
+  "frozen": false
+}

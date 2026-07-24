@@ -1,0 +1,15 @@
+{
+  "id": "b5e48adc-317d-480d-88a4-e2edc659453a",
+  "slug": "subset-sum",
+  "name": "Subset Sum",
+  "problemSetName": "Semester 3",
+  "status": "graded",
+  "fetchedAt": "2026-07-24T21:32:39.703081Z",
+  "bodyFetchedAt": "2026-07-24T21:32:39.703081Z",
+  "bestScorePossible": null,
+  "candidateScores": [
+    
+  ],
+  "lastSubmission": null,
+  "frozen": false
+}

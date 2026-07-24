@@ -1,0 +1,66 @@
+{
+  "input": {
+    "seq": [
+      {
+        "label": "N",
+        "of": "int"
+      },
+      {
+        "label": "M",
+        "of": "int"
+      },
+      {
+        "label": "K",
+        "of": "int"
+      },
+      {
+        "label": "A",
+        "note": "row-major",
+        "of": {
+          "count": {
+            "*": [
+              "N",
+              "M"
+            ]
+          },
+          "of": "int"
+        }
+      },
+      {
+        "label": "B",
+        "note": "row-major",
+        "of": {
+          "count": {
+            "*": [
+              "M",
+              "K"
+            ]
+          },
+          "of": "int"
+        }
+      }
+    ]
+  },
+  "output": {
+    "label": "C",
+    "note": "row-major",
+    "of": {
+      "count": {
+        "*": [
+          "N",
+          "K"
+        ]
+      },
+      "of": "int"
+    }
+  },
+  "definitions": {
+    "A": "N×M matrix — row-major",
+    "B": "M×K matrix — row-major",
+    "C": "N×K matrix — row-major"
+  },
+  "constraints": [
+    "`2 ≤ N, M, K ≤ 16` — dimensions, vary per test case",
+    "`-99 ≤ a, b ≤ 99` — entries of A and B"
+  ]
+}

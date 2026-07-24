@@ -1,0 +1,31 @@
+{
+  "input": {
+    "seq": [
+      {
+        "lengthPrefixed": {
+          "of": "int",
+          "label": "v",
+          "note": "one value in the list, at the input position (0-indexed) it appears here"
+        }
+      },
+      {
+        "of": "int",
+        "label": "t",
+        "note": "the target sum"
+      }
+    ]
+  },
+  "output": {
+    "of": {
+      "lengthPrefixed": "int",
+      "countLabel": "k"
+    },
+    "label": "subset",
+    "note": "the chosen values, in increasing order of their original index; empty (k = 0) if no subset of the values sums to t"
+  },
+  "constraints": [
+    "`10 ≤ n ≤ 20` — values per test case",
+    "`1 ≤ v ≤ 99999`",
+    "`100 < t < 1000000`; t is roughly 10%–60% of the value sum"
+  ]
+}
