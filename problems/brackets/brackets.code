@@ -1,0 +1,23 @@
+[0] = input
+[2] = 3
+loop1:
+[1] = [1] + 1
+if [1] - [0] > 0: output 0 halt
+B = input
+if B - 40 == 0: B = B - 1
+if B - 41 < 0: goto push; == 0: goto check
+if B - 93 < 0: goto push; == 0: goto check
+if B - 125 < 0: goto push;
+check:
+if [[2]] - B == 0: goto pass
+output [1] halt
+pass:
+[2] = [2] - 1
+goto loop1
+push:
+[3] = B
+[2] = [2] + 1
+[[2]] = [3]
+[3] = 0
+goto loop1
+

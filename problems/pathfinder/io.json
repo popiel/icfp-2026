@@ -1,0 +1,16 @@
+{
+  "input": {
+    "of": {
+      "repeat": "int"
+    },
+    "note": "the first round is the 16×16 board (256 cells, row-major, 1 = wall) plus the robot's starting position rx ry; every later round is one flag fx fy"
+  },
+  "display": {
+    "width": 16,
+    "height": 16
+  },
+  "constraints": [
+    "`0 ≤ x < 16`, `0 ≤ y < 16`",
+    "the shortest path to each flag is at most 64 moves"
+  ]
+}

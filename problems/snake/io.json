@@ -1,0 +1,16 @@
+{
+  "input": {
+    "of": {
+      "repeat": "int"
+    },
+    "note": "the first round is the starting head position sx sy; every later round is a fruit spawn `1 fx fy`, a direction change `2`/`3`/`4`/`5` (up/right/down/left), or a clock tick `0`"
+  },
+  "display": {
+    "width": 16,
+    "height": 16
+  },
+  "constraints": [
+    "`0 ≤ x < 16`, `0 ≤ y < 16`",
+    "At most 100 rounds per test case (including the starting round)."
+  ]
+}

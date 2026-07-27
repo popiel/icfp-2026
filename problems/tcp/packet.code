@@ -1,0 +1,14 @@
+input
+[0] = 2
+loop1:
+B = input - 13 
+if B - [0] > 0 goto error
+B = B + 15
+[B] = input
+loop2:
+if [[0]] == 0 goto loop1
+output [[0]]
+[0] = [0] + 1
+goto loop2
+
+

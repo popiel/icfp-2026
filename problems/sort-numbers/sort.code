@@ -1,0 +1,58 @@
+[0] = input
+bp = [0]
+[1] = 8
+loop1:
+[[1]] = input
+[1] = [1] + 1
+m if_bp goto loop1
+
+[1] = [0] + 8
+[2] = 8
+loop2:
+[2] = [2] + 1
+if [2] - [1] == 0 goto exit
+# B == [2]
+[4] = [[2]]
+[3] = [2]
+# B = [3]
+loop3:
+if [3] - 8 <= 0 goto n2
+[5] = [[3] - 1]
+if [5] - [4] <= 0 goto n2
+[[3]] = [5]
+[3] = [3] - 1
+goto loop3
+
+n2:
+[[3]] = [4]
+goto loop2
+
+exit:
+bp = [0]
+[1] = 8
+loop4:
+output [[1]]
+[1] = [1] + 1
+m if_bp goto loop4
+
+
+
+ v<+------------------------------+
++-+|v                            <|
+|O||@v             >      v       |
++-+|v<         >v        <   >v   |
+   |       >v                Xv>v |
+ >>|v  >v>v  >v  >v  >v    >v  s  |
+ ^ |r   r 1 0 0 0 0   5 1 0 2 0   |
++-+|    sMs s s s s  ss s s s-s   |
+|I||    1+1 2s2 3M4  01M3 4sMW0   |
++-+|M   s9s sWs sss  Ms-s s01ssr  |
+   |1>v 1MW rsrsrWr  +WWW rs+1rM  |
+ v<|sW1 +rssM4MWMs-  1s1s MWMsbs1 |
+  >|0+s ss1+0s1s05>XvMrM>^0s109W+ |
+  ||s9W M0s1s1W3ss >vrsr  srsM+sM |
+  ||WWs ms2MWM-sW1  0s0s  3s2sM0m |
+  ||sbM^d0s9srM1sM  s3s3  s1sW ^d |
+  ||>^>^>^>^>^>^>^  >^>^  >^>^>^>^|
+  |+------------------------------+
+

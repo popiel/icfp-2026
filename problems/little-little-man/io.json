@@ -1,0 +1,21 @@
+{
+  "input": {
+    "of": {
+      "repeat": "int"
+    },
+    "note": "the first round is the LLM program: W H, then W·H ASCII codes (row-major); every later round is one step command k"
+  },
+  "display": {
+    "width": 16,
+    "height": 16
+  },
+  "constraints": [
+    "`4 ≤ W, H ≤ 16`",
+    "`1 ≤ k ≤ 64`",
+    "at most 3 rooms and at most 2 pipes per program",
+    "at most 20 total pipe cells per program",
+    "at most 30 rounds and at most 100 ticks per test case",
+    "no step commands arrive after the program halts",
+    "every value sent into a pipe is between `-9` and `9`"
+  ]
+}

@@ -1,0 +1,18 @@
+{
+  "input": {
+    "of": {
+      "repeat": "int"
+    },
+    "note": "the first round is the LLLM program: W H, then W·H ASCII codes (row-major); every later round is one step command k"
+  },
+  "display": {
+    "width": 16,
+    "height": 16
+  },
+  "constraints": [
+    "`4 ≤ W, H ≤ 16`",
+    "`1 ≤ k ≤ 64`",
+    "at most 30 rounds and at most 200 ticks per test case",
+    "no step commands arrive after the program halts"
+  ]
+}
