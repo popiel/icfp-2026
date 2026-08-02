@@ -1,0 +1,28 @@
++------+>>+------------+  +----+
+| > >sv|<<|vs~r<>  srH |>>|vs<<|
+|   ^r<|>>|   8   >r{sv|<<|>r^ |
+|>Y>>sv|<<|vs~ra@v     |  |  @Y|
+| >Y^r<|>>|   7md  srH |>>|vs< |
+|  >>sv|<<|vs~ram dr/sv|<<|>r^ |
+|^< ^r<|>>|   6mm7m    |  |  Y<|
+|>Y>>sv|<<|vs~radMmsrH |>>|vs< |
+| >Y^r<|>>|   5mm9dr/sv|<<|>r^ |
+|  >>sv|<<|vs~ram>m v  |>v+----+
+|Y@<^r<|>>|   4md ms H | >-->+-+
+|  >>sv|<<|vs~ram d *rv|<<+-+|O|
+| >Y^r<|>>|   3m^x^ M s|  |I|+-+
+|  >>sv|<<|vs~ravM{1< H|  +-+   
+|>Y ^r<|>>|> & m msH>Nv|>v      
+|  >>sv|<<|^s~ra Ymrb+<| |      
+| >Y^r<|>>|   1m>>>rX v|<|      
+|  >>sv|<<|^s~ra  Yrb+<|||      
+|   ^r<|  |   0^mM< > ^|||      
++------+  +------------+^v      
++------------------------------+
+|>@1Ns0s1Ns0s1Ns0s4Nsrs6Nsrs8Nv|
+|ss1s< vsN2XNrsWsrs1sN3Ms{1Mrs<|
+|1>2N^ >0sH>5Ns1s7Ns9srsrsr Xv |
+|svWsWrs9sN7M+rM*rMsNsNs3sN5<v |
+|N>srX2Ns0sH           Hs0sN2< |
+|^2  <                         |
++------------------------------+
